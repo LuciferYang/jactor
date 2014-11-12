@@ -7,56 +7,40 @@ package arksea.jactor;
  */
 public class ChildInfo<T> {
 
-    private final String name;
-    private final boolean daemon;
-    private final Class clazz;
+    public final String name;
+    public final Class clazz;
     //最大消息队列长度，当设置为0时，将不检测队列长度
     //但这很危险，请谨慎抉择
-    private final long maxQueueLen;
-    private final T args;
-    private Class argsClass;
+    public final long maxQueueLen;
+    public final T state;
+    private Class stateClass;
+    private final boolean daemon;
 
-    public ChildInfo(String name, Class clz, T args) {
+    public ChildInfo(String name, Class clz, T state) {
         this.name = name;
         this.clazz = clz;
-        this.args = args;
+        this.state = state;
         this.maxQueueLen = 10;
         this.daemon = false;
-        this.argsClass = args.getClass();
+        this.stateClass = state.getClass();
     }
 
-    public ChildInfo(String name, Class clz, T args, long maxQueueLen) {
+    public ChildInfo(String name, Class clz, T state, long maxQueueLen) {
         this.name = name;
         this.clazz = clz;
-        this.args = args;
-        this.daemon = false;
+        this.state = state;
         this.maxQueueLen = maxQueueLen;
-        this.argsClass = args.getClass();
+        this.daemon = false;
+        this.stateClass = state.getClass();
     }
 
-    public ChildInfo(String name, Class clz, T args, long maxQueueLen, boolean daemon) {
+    public ChildInfo(String name, Class clz, T state, long maxQueueLen, boolean daemon) {
         this.name = name;
         this.clazz = clz;
-        this.args = args;
+        this.state = state;
         this.maxQueueLen = maxQueueLen;
         this.daemon = daemon;
-        this.argsClass = args.getClass();
-    }
-
-    public Class getClazz() {
-        return clazz;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public T getArgs() {
-        return args;
-    }
-
-    public long getMaxQueueLen() {
-        return maxQueueLen;
+        this.stateClass = state.getClass();
     }
 
     public boolean isDaemon() {
@@ -64,10 +48,10 @@ public class ChildInfo<T> {
     }
 
     public Class getArgsClass() {
-        return argsClass;
+        return stateClass;
     }
 
     public void setArgsClass(Class argsClass) {
-        this.argsClass = argsClass;
+        this.stateClass = argsClass;
     }
 }
